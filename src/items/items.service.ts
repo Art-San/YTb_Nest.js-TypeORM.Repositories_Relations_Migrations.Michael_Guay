@@ -6,6 +6,7 @@ import { UpdateItemDto } from './dto/update-item.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Listing } from './entities/listing.entity'
 import { Comment } from './entities/comment.entity'
+import { Tag } from './entities/teg.entity'
 
 @Injectable()
 export class ItemsService {
@@ -20,9 +21,11 @@ export class ItemsService {
 			...createItemDto.listing,
 			rating: 0,
 		})
+		const tags = createItemDto.tags.map((createTagDto) => new Tag(createTagDto))
 		const item = new Item({
 			...createItemDto,
 			comments: [], // 38:02
+			tags,
 			listing,
 		})
 		await this.entityManager.save(item)
@@ -45,6 +48,7 @@ export class ItemsService {
 			relations: {
 				listing: true,
 				comments: true,
+				tags: true,
 			},
 		})
 	}
