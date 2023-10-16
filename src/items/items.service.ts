@@ -54,16 +54,32 @@ export class ItemsService {
 	}
 
 	async update(id: number, updateItemDto: UpdateItemDto) {
-		const item = await this.itemsRepository.findOneBy({ id })
-		item.public = updateItemDto.public
-		const comments = updateItemDto.comments.map(
-			(createCommentDto) => new Comment(createCommentDto)
-		)
-		item.comments = comments
-		await this.itemsRepository.save(item)
+		// const item = await this.itemsRepository.findOneBy({ id })
+		// item.public = updateItemDto.public
+		// const comments = updateItemDto.comments.map(
+		// 	(createCommentDto) => new Comment(createCommentDto)
+		// )
+		// item.comments = comments
+		// await entityManager.save(item)
 
-		return item
+		// transaction
+		await this.entityManager.transaction(async (entityManager) => {
+			const item = await this.itemsRepository.findOneBy({ id })
+			item.public = updateItemDto.public
+			const comments = updateItemDto.comments.map(
+				(createCommentDto) => new Comment(createCommentDto)
+			)
+			item.comments = comments
+			await entityManager.save(item)
+			throw new Error('Это ошибка') // Эта ошибка не позволила произвести запись в бд
+			const tagContent = `${Math.random()}`
+			const tag = new Tag({ content: tagContent })
+			await entityManager.save(tag)
+		})
+
+		// return item
 	}
+
 	// Работает вар
 	// async update(id: number, updateItemDto: UpdateItemDto) {
 	// 	const item = await this.itemsRepository.findOne({
