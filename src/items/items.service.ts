@@ -24,7 +24,7 @@ export class ItemsService {
 		const tags = createItemDto.tags.map((createTagDto) => new Tag(createTagDto))
 		const item = new Item({
 			...createItemDto,
-			comments: [], // 38:02
+			comments: [], // 38:0
 			tags,
 			listing,
 		})
@@ -37,6 +37,7 @@ export class ItemsService {
 			relations: {
 				listing: true,
 				comments: true,
+				tags: true,
 			},
 		})
 	}
