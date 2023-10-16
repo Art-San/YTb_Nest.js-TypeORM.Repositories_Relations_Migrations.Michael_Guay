@@ -6,7 +6,7 @@ import { UpdateItemDto } from './dto/update-item.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Listing } from './entities/listing.entity'
 import { Comment } from './entities/comment.entity'
-import { Tag } from './entities/teg.entity'
+import { Tag } from './entities/tag.entity'
 
 @Injectable()
 export class ItemsService {

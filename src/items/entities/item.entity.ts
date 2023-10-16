@@ -11,7 +11,7 @@ import {
 } from 'typeorm'
 import { Listing } from './listing.entity'
 import { Comment } from './comment.entity'
-import { Tag } from './teg.entity'
+import { Tag } from './tag.entity'
 
 @Entity()
 export class Item extends AbstractEntity<Item> {
