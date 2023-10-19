@@ -8,7 +8,7 @@ import {
 	Put,
 } from '@nestjs/common'
 import { UserService } from './user.service'
-import { User } from './user.entity'
+import { UserEntity } from './user.entity'
 import { CurrentUser } from './user.decorator'
 import { UserDto } from './user.dto'
 
@@ -20,11 +20,6 @@ export class UserController {
 	// @Auth()
 	async getProfile(@CurrentUser('id') id: number) {
 		return this.userService.byId(id)
-	}
-
-	@Post('register')
-	async register(@Body() user: User): Promise<User> {
-		return this.userService.create(user)
 	}
 
 	@Get('by-id/:id')
@@ -42,4 +37,10 @@ export class UserController {
 	async getUsers() {
 		return this.userService.getAll()
 	}
+
+	// @HttpCode(200)
+	// @Post('register')
+	// async register(@Body() user: UserEntity): Promise<UserEntity> {
+	// 	return this.userService.create(user)
+	// }
 }

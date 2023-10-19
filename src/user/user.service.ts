@@ -7,18 +7,18 @@ import {
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { UserDto } from './user.dto'
-import { User } from './user.entity'
+import { UserEntity } from './user.entity'
 import { hash } from 'argon2'
 // import { UserRepository } from './user.repository'
 
 @Injectable()
 export class UserService {
 	constructor(
-		@InjectRepository(User)
-		private readonly userRepository: Repository<User>
+		@InjectRepository(UserEntity)
+		private readonly userRepository: Repository<UserEntity>
 	) {}
 	// constructor(
-	// 	@InjectRepository(User)
+	// 	@InjectRepository(UserEntity)
 	// 	private userRepository: UserRepository
 	// ) {}
 
@@ -58,20 +58,12 @@ export class UserService {
 		return this.userRepository.save(user)
 	}
 
-	async create(user: User): Promise<User> {
-		// const userNew = this.userRepository.save(user)
-		// return this.userRepository.save(user)
-		throw new UnauthorizedException('Приходит из user.service.ts create')
-	}
-
-	// async findOne(username: string): Promise<User | undefined> {
-	// 	return this.userRepository.findOne({ username })
-	// }
-	// async findOne(username: string) {
-	// 	return username
-	// }
-
 	async getAll() {
 		return this.userRepository.find()
 	}
+
+	// async create(user: UserEntity): Promise<UserEntity> {
+	// 	const userNew = this.userRepository.save(user)
+	// 	return userNew
+	// }
 }

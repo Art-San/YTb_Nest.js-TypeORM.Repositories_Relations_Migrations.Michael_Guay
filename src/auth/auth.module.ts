@@ -6,7 +6,7 @@ import { AuthController } from './auth.controller'
 import { JwtModule } from '@nestjs/jwt'
 
 import { ConfigModule, ConfigService } from '@nestjs/config'
-import { User } from 'src/user/user.entity'
+import { UserEntity } from 'src/user/user.entity'
 import { getJWTConfig } from 'src/config/jwt.config'
 
 import { UserModule } from 'src/user/user.module'
@@ -14,7 +14,7 @@ import { UserModule } from 'src/user/user.module'
 @Module({
 	controllers: [AuthController],
 	imports: [
-		TypeOrmModule.forFeature([User]), // Используйте TypeORM для работы с сущностью User
+		TypeOrmModule.forFeature([UserEntity]),
 		ConfigModule,
 		JwtModule.registerAsync({
 			imports: [ConfigModule],
