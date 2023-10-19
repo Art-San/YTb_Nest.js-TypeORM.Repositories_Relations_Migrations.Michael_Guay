@@ -8,7 +8,8 @@ import { JwtModule } from '@nestjs/jwt'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { User } from 'src/user/user.entity'
 import { getJWTConfig } from 'src/config/jwt.config'
-import { UserRepository } from 'src/user/user.repository'
+
+import { UserModule } from 'src/user/user.module'
 
 @Module({
 	controllers: [AuthController],
@@ -20,7 +21,8 @@ import { UserRepository } from 'src/user/user.repository'
 			inject: [ConfigService],
 			useFactory: getJWTConfig,
 		}),
+		UserModule,
 	],
-	providers: [AuthService, UserRepository],
+	providers: [AuthService],
 })
 export class AuthModule {}

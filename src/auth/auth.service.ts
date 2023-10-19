@@ -5,51 +5,45 @@ import {
 	UnauthorizedException,
 } from '@nestjs/common'
 import { AuthDto } from './auth.dto'
+import { UserService } from 'src/user/user.service'
+import { Repository } from 'typeorm'
+import { User } from 'src/user/user.entity'
 
 @Injectable()
 export class AuthService {
-	constructor(private readonly userRepository: UserRepository) {}
+	constructor(
+		private readonly userService: UserService
+	) // private readonly userRepository: Repository<User>
+	{}
 
 	async register(dto: AuthDto) {
-		const oldUser = await this.userRepository.findOne({
-			where: {
-				email: dto.email,
-			},
-		})
-		if (oldUser) {
-			throw new BadRequestException('Юзер с таким email уже есть в системе')
-		}
+		// console.log('dto', dto)
+		// const oldUser = await this.userRepository.find({dto.email})
+		// console.log('oldUser', oldUser)
+		// if (oldUser) {
+		// 	throw new BadRequestException('Юзер с таким email уже есть в системе')
+		// }
 
-		const newUser = this.userRepository.create({
-			email: dto.email,
-			password: dto.password,
-		})
+		// const newUser = this.userRepository.create({
+		// 	email: dto.email,
+		// 	password: dto.password,
+		// })
 
-		const user = await this.userRepository.save(newUser)
+		// const user = await this.userRepository.save(newUser)
 
-		return user
+		return null
 	}
 
 	async login(dto: AuthDto) {
-		// return this.validateUser(dto)
-		const user = await this.validateUser(dto)
-
-		return user
-	}
-	async validateUser(dto: AuthDto): Promise<UserModel> {
-		const user = await this.userRepository.findOne({
-			where: {
-				email: dto.email,
-			},
-		})
-		if (!user) {
-			throw new UnauthorizedException('Юзер с таким email нет в системе')
-		}
-
-		// const isValidPassword = await compare(dto.password, user.password)
-		// if (!isValidPassword) {
-		// 	throw new UnauthorizedException('Не верный пароль')
+		// const user = await this.validateUser(dto)
+		// const tokens = await this.issueTokenPair(String(user.id))
+		// return {
+		// 	user: this.returnUserFields(user),
+		// 	...tokens,
 		// }
-		return user
+	}
+
+	async getAll() {
+		return this.userService.getAll()
 	}
 }
