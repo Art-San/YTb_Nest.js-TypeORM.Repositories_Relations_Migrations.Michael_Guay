@@ -6,15 +6,17 @@ import {
 	Param,
 	HttpCode,
 	Put,
+	UsePipes,
+	ValidationPipe,
 } from '@nestjs/common'
 import { UserService } from './user.service'
 import { UserEntity } from './user.entity'
 import { CurrentUser } from './user.decorator'
-import { UserDto } from './user.dto'
+import { UserDto } from './dto/user.dto'
 
 @Controller('user')
 export class UserController {
-	constructor(private userService: UserService) {}
+	constructor(private readonly userService: UserService) {}
 
 	@Get('profile')
 	// @Auth()
@@ -27,6 +29,7 @@ export class UserController {
 		return this.userService.byId(+id)
 	}
 
+	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
 	@Put(':id')
 	async updateUser(@Param('id') id: string, @Body() dto: UserDto) {

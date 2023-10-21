@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { UserDto } from './user.dto'
+import { UserDto } from './dto/user.dto'
 import { UserEntity } from './user.entity'
 import { hash } from 'argon2'
 // import { UserRepository } from './user.repository'
@@ -55,7 +55,8 @@ export class UserService {
 
 		user.email = dto.email // 19:26
 
-		return this.userRepository.save(user)
+		// return this.userRepository.save(user)
+		throw new NotFoundException('обновил')
 	}
 
 	async getAll() {

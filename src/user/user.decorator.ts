@@ -8,8 +8,11 @@ import { UserEntity } from './user.entity'
 export const CurrentUser = createParamDecorator(
 	(data: keyof UserEntity, ctx: ExecutionContext) => {
 		const request = ctx.switchToHttp().getRequest()
+		console.log('request', request)
 		const user = request.user
+		console.log('user', user)
 
-		return data ? user[data] : user
+		// return null
+		// return data ? user[data] : user
 	}
 )

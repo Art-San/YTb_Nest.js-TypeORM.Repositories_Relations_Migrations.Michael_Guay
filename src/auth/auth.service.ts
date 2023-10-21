@@ -5,12 +5,13 @@ import {
 	UnauthorizedException,
 	NotFoundException,
 } from '@nestjs/common'
-import { AuthDto } from './auth.dto'
+import { AuthDto } from './dto/auth.dto'
 import { UserService } from 'src/user/user.service'
 import { Repository } from 'typeorm'
 import { UserEntity } from 'src/user/user.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { hash, verify } from 'argon2'
+import { RefreshTokenDto } from './dto/refreshToken.dto'
 
 @Injectable()
 export class AuthService {
@@ -32,13 +33,37 @@ export class AuthService {
 		})
 
 		const user = await this.userRepository.save(newUser)
+		const tokens = await this.issueTokenPair(String(user.id))
 
-		return user
+		return {
+			user: this.returnUserFields(user),
+			...tokens,
+		}
 	}
 
 	async login(dto: AuthDto) {
 		const user = await this.validateUser(dto)
 		const tokens = await this.issueTokenPair(String(user.id))
+
+		return {
+			user: this.returnUserFields(user),
+			...tokens,
+		}
+	}
+
+	async getNewTokens({ refreshToken }: RefreshTokenDto) {
+		if (!refreshToken) {
+			throw new UnauthorizedException('Пожалуйста войдите в систему')
+		}
+
+		const result = await this.jwtService.verifyAsync(refreshToken) // Верификация токена
+		if (!result) {
+			throw new UnauthorizedException(
+				'Неверный токен или срок его действия истек'
+			)
+		}
+		const user = await this.userRepository.findOne({ where: { id: result.id } }) // Ищем юзера
+		const tokens = await this.issueTokenPair(String(user.id)) // Создаем токен
 
 		return {
 			user: this.returnUserFields(user),
@@ -59,7 +84,6 @@ export class AuthService {
 		}
 
 		const isValidPassword = await verify(user.password, dto.password)
-		console.log('isValidPassword', isValidPassword)
 		if (!isValidPassword) {
 			throw new UnauthorizedException('Не правильный пароль')
 		}

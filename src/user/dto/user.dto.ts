@@ -7,13 +7,13 @@ export class UserDto {
 	password?: string
 
 	@IsString()
-	name: string
+	name?: string
 
 	@IsString()
-	address: string
+	address?: string
 
 	@IsString()
-	avatarPath: string
+	avatarPath?: string
 }
 
 // export class UserDto {
