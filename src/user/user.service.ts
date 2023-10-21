@@ -54,9 +54,14 @@ export class UserService {
 		}
 
 		user.email = dto.email // 19:26
+		user.name = dto.name
+		user.address = dto.address
+		user.avatarPath = dto.avatarPath
 
-		// return this.userRepository.save(user)
-		throw new NotFoundException('обновил')
+		const updateUser = await this.userRepository.save(user)
+
+		return updateUser
+		// throw new NotFoundException('обновил')
 	}
 
 	async getAll() {
