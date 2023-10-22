@@ -10,6 +10,7 @@ import { UserEntity } from 'src/user/user.entity'
 import { getJWTConfig } from 'src/config/jwt.config'
 
 import { UserModule } from 'src/user/user.module'
+import { JwtStrategy } from './strategies/jwt.strategy'
 
 @Module({
 	controllers: [AuthController],
@@ -23,7 +24,7 @@ import { UserModule } from 'src/user/user.module'
 		}),
 		UserModule,
 	],
-	providers: [AuthService],
+	providers: [AuthService, JwtStrategy],
 })
 export class AuthModule {}
 

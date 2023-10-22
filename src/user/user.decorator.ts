@@ -12,8 +12,9 @@ import { UserEntity } from './user.entity'
 export const CurrentUser = createParamDecorator(
 	(data: keyof UserEntity, ctx: ExecutionContext) => {
 		const request = ctx.switchToHttp().getRequest()
-		console.log('request', request)
+
 		const user = request.user
+		console.log('request', request)
 
 		if (user === undefined) throw new NotFoundException('user rrrr undefined')
 

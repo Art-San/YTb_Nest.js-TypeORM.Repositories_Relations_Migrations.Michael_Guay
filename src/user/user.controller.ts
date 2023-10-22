@@ -13,13 +13,14 @@ import { UserService } from './user.service'
 import { UserEntity } from './user.entity'
 import { CurrentUser } from './user.decorator'
 import { UserDto } from './dto/user.dto'
+import { Auth } from 'src/auth/decorators/auth.decorator'
 
 @Controller('user')
 export class UserController {
 	constructor(private readonly userService: UserService) {}
 
 	@Get('profile')
-	// @Auth()
+	@Auth()
 	async getProfile(@CurrentUser('id') id: number) {
 		return this.userService.byId(id)
 	}
