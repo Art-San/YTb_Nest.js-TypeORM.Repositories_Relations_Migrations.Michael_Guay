@@ -1,5 +1,7 @@
 import { IsEmail, IsString } from 'class-validator'
 
+
+//UserDto описываем данные которые приходят из вне на обновление и создание
 export class UserDto {
 	@IsEmail()
 	email: string
@@ -7,13 +9,13 @@ export class UserDto {
 	password?: string
 
 	@IsString()
-	name?: string
+	name: string
 
 	@IsString()
-	address?: string
+	address: string
 
 	@IsString()
-	avatarPath?: string
+	avatarPath: string
 }
 
 // export class UserDto {

@@ -67,9 +67,4 @@ export class UserService {
 	async getAll() {
 		return this.userRepository.find()
 	}
-
-	// async create(user: UserEntity): Promise<UserEntity> {
-	// 	const userNew = this.userRepository.save(user)
-	// 	return userNew
-	// }
 }

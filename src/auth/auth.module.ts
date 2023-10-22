@@ -26,3 +26,5 @@ import { UserModule } from 'src/user/user.module'
 	providers: [AuthService],
 })
 export class AuthModule {}
+
+// providers: [AuthService, JwtStrategy],

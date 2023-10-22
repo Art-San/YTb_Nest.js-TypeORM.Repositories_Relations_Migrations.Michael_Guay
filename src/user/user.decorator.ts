@@ -1,4 +1,8 @@
-import { createParamDecorator, ExecutionContext } from '@nestjs/common'
+import {
+	createParamDecorator,
+	ExecutionContext,
+	NotFoundException,
+} from '@nestjs/common'
 import { UserEntity } from './user.entity'
 
 // Данный декоратор CurrentUser используется для извлечения
@@ -10,9 +14,9 @@ export const CurrentUser = createParamDecorator(
 		const request = ctx.switchToHttp().getRequest()
 		console.log('request', request)
 		const user = request.user
-		console.log('user', user)
 
-		// return null
-		// return data ? user[data] : user
+		if (user === undefined) throw new NotFoundException('user rrrr undefined')
+
+		return data ? user[data] : user
 	}
 )
