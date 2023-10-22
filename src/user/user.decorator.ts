@@ -14,7 +14,7 @@ export const CurrentUser = createParamDecorator(
 		const request = ctx.switchToHttp().getRequest()
 
 		const user = request.user
-		console.log('request', request)
+		// console.log('request', request)
 
 		if (user === undefined) throw new NotFoundException('user rrrr undefined')
 
