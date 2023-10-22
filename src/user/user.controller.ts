@@ -32,10 +32,18 @@ export class UserController {
 
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
-	@Put(':id')
-	async updateUser(@Param('id') id: string, @Body() dto: UserDto) {
+	@Put('profile')
+	@Auth()
+	async updateProfile(@CurrentUser('id') id: number, @Body() dto: UserDto) {
 		return this.userService.updateProfile(+id, dto)
 	}
+	// @UsePipes(new ValidationPipe())
+	// @HttpCode(200)
+	// @Put(':id')
+	// @Auth()
+	// async updateUser(@Param('id') id: string, @Body() dto: UserDto) {
+	// 	return this.userService.updateProfile(+id, dto)
+	// }
 
 	@Get()
 	async getUsers() {
