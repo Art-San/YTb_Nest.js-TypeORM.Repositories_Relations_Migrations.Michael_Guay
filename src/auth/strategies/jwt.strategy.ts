@@ -1,32 +1,3 @@
-// import { Injectable } from '@nestjs/common'
-// import { ConfigService } from '@nestjs/config'
-// import { PassportStrategy } from '@nestjs/passport'
-// import { ModelType } from '@typegoose/typegoose/lib/types'
-// import { InjectModel } from 'nestjs-typegoose'
-// import { ExtractJwt, Strategy } from 'passport-jwt'
-// import { UserService } from 'src/user/user.service'
-// import { UserModel } from '../../user/user.model'
-
-// @Injectable()
-// export class JwtStrategy extends PassportStrategy(Strategy) {
-// 	constructor(
-// 		private readonly configService: ConfigService,
-// 		@InjectModel(UserModel) private readonly UserModel: ModelType<UserModel>
-// 	) {
-// 		super({
-// 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-// 			ignoreExpiration: true,
-// 			secretOrKey: configService.get('JWT_SECRET'),
-// 		})
-// 	}
-
-// 	async validate({ _id }: Pick<UserModel, '_id'>) {
-// 		// return this.UserModel.findById(_id).exec()
-// 		const user = await this.UserModel.findById(_id)
-// 		return user
-// 	}
-// }
-
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
@@ -35,11 +6,11 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { UserEntity } from 'src/user/user.entity'
 
-interface IJwtPayload {
-	id: number
-	iat: number
-	exp: number
-}
+// interface IJwtPayload {
+// 	id: number
+// 	iat: number
+// 	exp: number
+// }
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -55,17 +26,28 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 		})
 	}
 
-	async validate(payload: IJwtPayload) {
+	async validate({ id }: Pick<UserEntity, 'id'>) {
 		const user = await this.userRepository.findOne({
 			where: {
-				id: payload.id,
+				id,
 			},
 		})
 		if (!user) {
 			return null
 		}
-		// console.log('payload.id', typeof payload.id) // payload.id string
 
 		return user
 	}
+	// async validate(payload: Pick<UserEntity, 'id'>) {
+	// 	const user = await this.userRepository.findOne({
+	// 		where: {
+	// 			id: payload.id,
+	// 		},
+	// 	})
+	// 	if (!user) {
+	// 		return null
+	// 	}
+
+	// 	return user
+	// }
 }

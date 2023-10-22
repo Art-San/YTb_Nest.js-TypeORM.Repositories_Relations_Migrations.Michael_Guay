@@ -15,11 +15,15 @@
 // export class AppModule {}
 
 import { Module } from '@nestjs/common'
-import { TypeOrmModule } from '@nestjs/typeorm'
 import { UserModule } from './user/user.module'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { AuthModule } from './auth/auth.module'
 import { GetTypeOrmConfig } from 'getTypeOrmConfig'
+import { BankAccountModule } from './bank-account/bank-account.module'
+import { SavingModule } from './saving/saving.module'
+import { InvoiceModule } from './invoice/invoice.module'
+import { TransactionModule } from './transaction/transaction.module'
+// import { MediaModule } from './media/media.module';
 
 @Module({
 	imports: [
@@ -27,6 +31,11 @@ import { GetTypeOrmConfig } from 'getTypeOrmConfig'
 		GetTypeOrmConfig,
 		UserModule,
 		AuthModule,
+		BankAccountModule,
+		SavingModule,
+		InvoiceModule,
+		TransactionModule,
+		// MediaModule,
 		// При необходимости импортируйте сюда другие модули, связанные с аутентификацией.
 	],
 	controllers: [],
