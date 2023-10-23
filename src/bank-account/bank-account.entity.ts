@@ -19,14 +19,18 @@ export class BankAccountEntity extends Base {
 	@Column({ default: 0 })
 	balance: number
 
-	@OneToOne(() => BankCardEntity, (card) => card.bankAccount)
+	@OneToOne(() => BankCardEntity, (card) => card.bankAccount, {
+		cascade: true,
+	})
 	@JoinColumn()
 	card: BankCardEntity
 
 	@ManyToOne(() => UserEntity, (user) => user.bankAccounts)
 	user?: UserEntity
 
-	@OneToOne(() => SavingEntity, (saving) => saving.bankAccount)
+	@OneToOne(() => SavingEntity, (saving) => saving.bankAccount, {
+		cascade: true,
+	})
 	saving?: SavingEntity
 }
 

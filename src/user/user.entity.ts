@@ -20,19 +20,16 @@ export class UserEntity extends Base {
 	@Column({ default: '', type: 'text' })
 	address: string
 
-	@OneToMany(() => BankAccountEntity, (bankAccount) => bankAccount.user)
+	@OneToMany(() => BankAccountEntity, (bankAccount) => bankAccount.user, {
+		cascade: true,
+	})
 	bankAccounts: BankAccountEntity[]
-
-	// @OneToMany(() => ContactsEntity, (contact) => contact.contacts, {
-	// 	cascade: true,
-	// })
-	// contacts: ContactsEntity[]
-
-	// @OneToOne(() => ContactsEntity, { cascade: true })
-	// @JoinColumn()
-	// contacts: ContactsEntity
-
-	//https://progressivecoder.com/typeorm-entity-relations/
 }
 
 // https://github.com/typeorm/typeorm/blob/master/docs/many-to-one-one-to-many-relations.md
+
+// @OneToOne(() => ContactsEntity, { cascade: true })
+// @JoinColumn()
+// contacts: ContactsEntity
+
+//https://progressivecoder.com/typeorm-entity-relations/
