@@ -1,8 +1,9 @@
+import { BankAccountEntity } from 'src/bank-account/bank-account.entity'
 import { Base } from 'src/utils/base'
 import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
 
-@Entity('User')
-export class UserEntity extends Base {
+@Entity('Saving')
+export class SavingEntity extends Base {
 	@Column({ unique: true })
 	email: string
 
@@ -18,7 +19,6 @@ export class UserEntity extends Base {
 	@Column({ default: '', type: 'text' })
 	address: string
 
-	// @OneToOne(() => ContactsEntity, { cascade: true })
-	// @JoinColumn()
-	// contacts: ContactsEntity
+	@OneToOne(() => BankAccountEntity, (bankAccount) => bankAccount.saving)
+	bankAccount: BankAccountEntity
 }
