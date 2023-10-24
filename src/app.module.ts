@@ -14,67 +14,67 @@
 // })
 // export class AppModule {}
 
-// import { Module } from '@nestjs/common'
-// import { UserModule } from './user/user.module'
-// import { ConfigModule, ConfigService } from '@nestjs/config'
-// import { AuthModule } from './auth/auth.module'
-// import { GetTypeOrmConfig } from 'src/config/getTypeOrmConfig'
-// import { BankAccountModule } from './bank-account/bank-account.module'
-// import { SavingModule } from './saving/saving.module'
-// import { InvoiceModule } from './invoice/invoice.module'
-// import { TransactionModule } from './transaction/transaction.module'
-// // import { MediaModule } from './media/media.module';
-
-// @Module({
-// 	imports: [
-// 		ConfigModule.forRoot({ isGlobal: true }),
-// 		GetTypeOrmConfig,
-// 		UserModule,
-// 		AuthModule,
-// 		BankAccountModule,
-// 		SavingModule,
-// 		InvoiceModule,
-// 		TransactionModule,
-// 		// MediaModule,
-// 		// При необходимости импортируйте сюда другие модули, связанные с аутентификацией.
-// 	],
-// 	controllers: [],
-// 	providers: [],
-// })
-// export class AppModule {}
-
 import { Module } from '@nestjs/common'
 import { UserModule } from './user/user.module'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { AuthModule } from './auth/auth.module'
+import { GetTypeOrmConfig } from 'src/config/getTypeOrmConfig'
 import { BankAccountModule } from './bank-account/bank-account.module'
 import { SavingModule } from './saving/saving.module'
 import { InvoiceModule } from './invoice/invoice.module'
 import { TransactionModule } from './transaction/transaction.module'
-import { getTypeOrmConfig_1 } from './config/typeorm.config'
-import { TypeOrmModule } from '@nestjs/typeorm'
 // import { MediaModule } from './media/media.module';
 
 @Module({
 	imports: [
-		ConfigModule.forRoot(),
-		TypeOrmModule.forRootAsync({
-			imports: [ConfigModule],
-			inject: [ConfigService],
-			useFactory: getTypeOrmConfig_1,
-		}),
-
+		ConfigModule.forRoot({ isGlobal: true }),
+		GetTypeOrmConfig,
 		UserModule,
 		AuthModule,
 		BankAccountModule,
 		SavingModule,
 		InvoiceModule,
 		TransactionModule,
+		// MediaModule,
+		// При необходимости импортируйте сюда другие модули, связанные с аутентификацией.
 	],
 	controllers: [],
 	providers: [],
 })
 export class AppModule {}
+
+// import { Module } from '@nestjs/common'
+// import { UserModule } from './user/user.module'
+// import { ConfigModule, ConfigService } from '@nestjs/config'
+// import { AuthModule } from './auth/auth.module'
+// import { BankAccountModule } from './bank-account/bank-account.module'
+// import { SavingModule } from './saving/saving.module'
+// import { InvoiceModule } from './invoice/invoice.module'
+// import { TransactionModule } from './transaction/transaction.module'
+// import { getTypeOrmConfig_1 } from './config/typeorm.config'
+// import { TypeOrmModule } from '@nestjs/typeorm'
+// // import { MediaModule } from './media/media.module';
+
+// @Module({
+// 	imports: [
+// 		ConfigModule.forRoot(),
+// 		TypeOrmModule.forRootAsync({
+// 			imports: [ConfigModule],
+// 			inject: [ConfigService],
+// 			useFactory: getTypeOrmConfig_1,
+// 		}),
+
+// 		UserModule,
+// 		AuthModule,
+// 		BankAccountModule,
+// 		SavingModule,
+// 		InvoiceModule,
+// 		TransactionModule,
+// 	],
+// 	controllers: [],
+// 	providers: [],
+// })
+// export class AppModule {}
 
 // import { Module } from '@nestjs/common'
 // import { TypeOrmModule } from '@nestjs/typeorm'

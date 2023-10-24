@@ -1,10 +1,10 @@
 import { ConfigService } from '@nestjs/config'
 import { config } from 'dotenv'
 import { DataSource } from 'typeorm'
-import { Item } from './src/items/entities/item.entity'
-import { Listing } from './src/items/entities/listing.entity'
-import { Comment } from './src/items/entities/comment.entity'
-import { Tag } from './src/items/entities/tag.entity'
+import { Item } from '../items/entities/item.entity'
+import { Listing } from '../items/entities/listing.entity'
+import { Comment } from '../items/entities/comment.entity'
+import { Tag } from '../items/entities/tag.entity'
 
 config()
 
@@ -20,3 +20,5 @@ export default new DataSource({
 	migrations: ['migrations/**'],
 	entities: [Item, Listing, Comment, Tag],
 })
+
+// для миграции делали, но миграция так и не заработала

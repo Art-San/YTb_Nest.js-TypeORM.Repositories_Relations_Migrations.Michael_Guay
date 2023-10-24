@@ -44,4 +44,4 @@ export class UserEntity extends Base {
 // @JoinColumn()
 // contacts: ContactsEntity
 
-//https://progressivecoder.com/typeorm-entity-relations/
+//https://progressivecoder.com/typeorm-entity-relations
