@@ -1,4 +1,6 @@
 import { BankAccountEntity } from 'src/bank-account/bank-account.entity'
+import { SavingEntity } from 'src/saving/saving.entity'
+import { TransactionEntity } from 'src/transaction/transaction.entity'
 import { Base } from 'src/utils/base'
 import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
 import { ContactsEntity } from './contacts.entity'
@@ -24,6 +26,16 @@ export class UserEntity extends Base {
 		cascade: true,
 	})
 	bankAccounts: BankAccountEntity[]
+
+	@OneToMany(() => SavingEntity, (saving) => saving.user, {
+		cascade: true,
+	})
+	savings: SavingEntity[]
+
+	@OneToMany(() => TransactionEntity, (transaction) => transaction.recipient, {
+		cascade: true,
+	})
+	transactions: TransactionEntity[]
 }
 
 // https://github.com/typeorm/typeorm/blob/master/docs/many-to-one-one-to-many-relations.md

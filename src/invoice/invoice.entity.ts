@@ -1,8 +1,8 @@
 import { BankAccountEntity } from 'src/bank-account/bank-account.entity'
 import { Base } from 'src/utils/base'
 import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
-import { InvoiceFileEntity } from './invoiceFile.entity'
-import { InvoiceItemEntity } from './invoiceItem.entity'
+import { InvoiceFileEntity } from './invoice-file.entity'
+import { InvoiceItemEntity } from './invoice-item.entity'
 
 @Entity('Invoice')
 export class InvoiceEntity extends Base {
