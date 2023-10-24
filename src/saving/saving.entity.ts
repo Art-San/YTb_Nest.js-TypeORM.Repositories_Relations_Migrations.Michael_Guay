@@ -2,7 +2,7 @@ import { BankAccountEntity } from 'src/bank-account/bank-account.entity'
 import { Base } from 'src/utils/base'
 import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
 
-@Entity('Saving')
+@Entity('Saving') // 2:29:09
 export class SavingEntity extends Base {
 	@Column({ unique: true })
 	email: string
